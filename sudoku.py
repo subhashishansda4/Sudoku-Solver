@@ -20,3 +20,10 @@ def print_board(puzzle):
             else:
                 print(str(puzzle[r][c]) + " ", end="")
                 
+def find_empty(puzzle):
+    for r in range(len(puzzle)):
+        for c in range(len(puzzle[0])):
+            if puzzle[r][c] == 0:
+                return r, c
+    
+    return None, None
