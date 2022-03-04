@@ -28,24 +28,51 @@ def find_empty(puzzle):
     
     return None, None
 
-# checking sudoku rules
-def valid(puzzle, guess, pos):
-    # for checking every row
-    for i in range(len(puzzle[0])):
-        if puzzle[pos[0]][i] == guess and pos[1] != i:
-            return False
-     
-    # for checking every column
-    for i in range(len(puzzle)):
-        if(puzzle[i][pos[1]]) == guess and pos[0] != i:
-            return False
-         
-    # for checking every cube box
-    cube_x = pos[1] // 3
-    cube_y = pos[0] // 3
-    for i in range(cube_y*3, cube_y*3+3):
-        for j in range(cube_x*3, cube_x*3+3):
-            if puzzle[i][j] == guess and (i,j) != pos:
+# =============================================================================
+# # checking sudoku rules
+# def valid(puzzle, guess, pos):
+#     # for checking every row
+#     for i in range(len(puzzle[0])):
+#         if puzzle[pos[0]][i] == guess and pos[1] != i:
+#             return False
+#      
+#     # for checking every column
+#     for i in range(len(puzzle)):
+#         if(puzzle[i][pos[1]]) == guess and pos[0] != i:
+#             return False
+#          
+#     # for checking every cube box
+#     cube_x = pos[1] // 3
+#     cube_y = pos[0] // 3
+#     for i in range(cube_y*3, cube_y*3+3):
+#         for j in range(cube_x*3, cube_x*3+3):
+#             if puzzle[i][j] == guess and (i,j) != pos:
+#                 return False
+#      
+#     return True
+# =============================================================================
+
+def is_valid(puzzle, guess, row, col):
+    row_vals = puzzle[row]
+    if guess in row_vals:
+        return False
+    
+    col_vals = []
+# =============================================================================
+#     for i in range(len(puzzle)):
+#         col_vals.append(puzzle[i][col])
+# =============================================================================
+    # using loop comprehension
+    col_vals = [puzzle[i][col] for i in range(len(puzzle))]
+    if guess in col_vals:
+        return False
+    
+    row_start = (row//3)*3
+    col_start = (col//3)*3
+    
+    for r in range(row_start, row_start+3):
+        for c in range(col_start, col_start+3):
+            if puzzle[r][c] == guess:
                 return False
-     
+    
     return True
