@@ -76,3 +76,34 @@ def is_valid(puzzle, guess, row, col):
                 return False
     
     return True
+
+def solve_sudoku(puzzle):
+    row, col = find_empty(puzzle)
+    
+    if row is None:
+        return True
+    
+    for guess in range(1, 10):
+        if is_valid(puzzle, guess, row, col):
+            puzzle[row][col] = guess
+            if solve_sudoku(puzzle):
+                return True
+        puzzle[row][col] = 0
+    
+    return False
+
+if __name__ == "__main__":
+    board = [
+        [0,0,6,8,0,2,0,0,4],
+        [0,0,0,0,5,0,0,2,0],
+        [0,8,0,0,1,0,0,0,0],
+        [0,0,0,0,8,0,0,0,0],
+        [0,0,4,0,0,0,3,0,0],
+        [0,6,0,7,0,9,0,1,0],
+        [9,0,0,0,0,0,0,0,1],
+        [0,7,0,2,0,6,0,9,0],
+        [0,0,0,0,0,5,0,0,0],
+        ]
+    
+    print(solve_sudoku(board))
+    print_board(board)
