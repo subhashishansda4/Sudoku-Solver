@@ -35,7 +35,6 @@ while True:
         for j in range(9):
             c.append(j)
             cell = driver.find_element(By.ID, "vc_" + c[j] + "_" + r[i])
-            cell.text
             value = cell.getText()
             puzzle[i][j].append(value)
         
